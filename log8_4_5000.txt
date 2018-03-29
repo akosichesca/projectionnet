@@ -1,0 +1,62 @@
+Extracting /tmp/tensorflow/mnist/input_data/train-images-idx3-ubyte.gz
+Extracting /tmp/tensorflow/mnist/input_data/train-labels-idx1-ubyte.gz
+Extracting /tmp/tensorflow/mnist/input_data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/tensorflow/mnist/input_data/t10k-labels-idx1-ubyte.gz
+Tensor("cosine_distance_loss/value:0", shape=(), dtype=float32)
+Saving graph to: /tmp/tmpUnB8_F
+step 0, training accuracy 0.046875
+test accuracy 0.085938
+step 100, training accuracy 0.304688
+step 200, training accuracy 0.53125
+step 300, training accuracy 0.640625
+step 400, training accuracy 0.710938
+step 500, training accuracy 0.773438
+step 600, training accuracy 0.445312
+step 700, training accuracy 0.257812
+step 800, training accuracy 0.414062
+step 900, training accuracy 0.554688
+step 1000, training accuracy 0.601562
+test accuracy 0.648438
+step 1100, training accuracy 0.679688
+step 1200, training accuracy 0.742188
+step 1300, training accuracy 0.734375
+step 1400, training accuracy 0.679688
+step 1500, training accuracy 0.6875
+step 1600, training accuracy 0.742188
+step 1700, training accuracy 0.71875
+step 1800, training accuracy 0.703125
+step 1900, training accuracy 0.53125
+step 2000, training accuracy 0.789062
+test accuracy 0.640625
+step 2100, training accuracy 0.742188
+step 2200, training accuracy 0.734375
+step 2300, training accuracy 0.78125
+step 2400, training accuracy 0.835938
+step 2500, training accuracy 0.835938
+step 2600, training accuracy 0.789062
+step 2700, training accuracy 0.78125
+step 2800, training accuracy 0.765625
+step 2900, training accuracy 0.765625
+step 3000, training accuracy 0.835938
+test accuracy 0.726562
+step 3100, training accuracy 0.804688
+step 3200, training accuracy 0.851562
+step 3300, training accuracy 0.835938
+step 3400, training accuracy 0.78125
+step 3500, training accuracy 0.78125
+step 3600, training accuracy 0.820312
+step 3700, training accuracy 0.671875
+step 3800, training accuracy 0.835938
+step 3900, training accuracy 0.765625
+step 4000, training accuracy 0.867188
+test accuracy 0.789062
+step 4100, training accuracy 0.882812
+step 4200, training accuracy 0.875
+step 4300, training accuracy 0.859375
+step 4400, training accuracy 0.804688
+step 4500, training accuracy 0.664062
+step 4600, training accuracy 0.75
+step 4700, training accuracy 0.828125
+step 4800, training accuracy 0.84375
+step 4900, training accuracy 0.40625
+0.81678125

@@ -1,0 +1,12 @@
+No LSH @ 1000
+INFO:root:0-shot: 0.005, 1-shot: 0.864, 2-shot: 0.932, 3-shot: 0.955, 4-shot: 0.942, 5-shot: 0.956, 6-shot: nan, 7-shot: nan, 8-shot: nan, 9-shot: nan, 10-shot: nan, 11-shot: nan, 12-shot: nan, 13-shot: nan, 14-shot: nan, 15-shot: nan, 16-shot: nan, 17-shot: nan, 18-shot: nan, 19-shot: nan, 20-shot: nan,
+
+w/ LSH @1000
+INFO:root:0-shot: 0.000, 1-shot: 0.332, 2-shot: 0.428, 3-shot: 0.478, 4-shot: 0.495, 5-shot: 0.481, 6-shot: nan, 7-shot: nan, 8-shot: nan, 9-shot: nan, 10-shot: nan, 11-shot: nan, 12-shot: nan, 13-shot: nan, 14-shot: nan, 15-shot: nan, 16-shot: nan, 17-shot: nan, 18-shot: nan, 19-shot: nan, 20-shot: nan, 
+
+ImageNet 5-way No LSH @ 1000
+INFO:root:0-shot: 0.044, 1-shot: 0.148, 2-shot: 0.216, 3-shot: 0.212, 4-shot: 0.204, 5-shot: 0.200, 
+
+
+INFO:root:0-shot: 0.012, 1-shot: 0.152, 2-shot: 0.164, 3-shot: 0.172, 4-shot: 0.160, 5-shot: 0.156, 
+

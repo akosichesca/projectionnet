@@ -1,0 +1,8 @@
+Extracting /tmp/tensorflow/mnist/input_data/train-images-idx3-ubyte.gz
+Extracting /tmp/tensorflow/mnist/input_data/train-labels-idx1-ubyte.gz
+Extracting /tmp/tensorflow/mnist/input_data/t10k-images-idx3-ubyte.gz
+Extracting /tmp/tensorflow/mnist/input_data/t10k-labels-idx1-ubyte.gz
+Tensor("cosine_distance_loss/value:0", shape=(), dtype=float32)
+Saving graph to: /tmp/tmpa4BzVd
+step 0, training accuracy 0.109375
+test accuracy 0.101562
