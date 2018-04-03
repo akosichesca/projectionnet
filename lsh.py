@@ -18,6 +18,7 @@ class LSHIndex:
         self.L = 0
         self.hash_tables = []
         self.resize(L)
+        self.hash_funcs = []
 
     def resize(self,L):
         """ update the number of hash tables to be used """
@@ -25,8 +26,8 @@ class LSHIndex:
             self.hash_tables = self.hash_tables[:L]
         else:
             # initialise a new hash table for each hash function
-            hash_funcs = [[self.hash_family.create_hash_func() for h in xrange(self.k)] for l in xrange(self.L,L)]
-            self.hash_tables.extend([(g,defaultdict(lambda:[])) for g in hash_funcs])
+            self.hash_funcs = [[self.hash_family.create_hash_func() for h in xrange(self.k)] for l in xrange(self.L,L)]
+            self.hash_tables.extend([(g,defaultdict(lambda:[])) for g in self.hash_funcs])
 
     def hash(self,g,p):
         return self.hash_family.combine([h.hash(p) for h in g])
@@ -44,7 +45,8 @@ class LSHIndex:
     def hashquery(self,q):
         for g,table in self.hash_tables:
             matches = table.get(self.hash(g,q),[])
-            print(self.hash_tables[matches[0]])
+            #print(self.hash_tables[matches[0]])
+            #print(matches)
 
     def query(self,q,metric,max_results):
         """ find the max_results closest indexed points to q according to the supplied metric """
@@ -58,6 +60,7 @@ class LSHIndex:
         # rerank candidates
         candidates = [(ix,metric(q,self.points[ix])) for ix in candidates]
         candidates.sort(key=itemgetter(1))
+        #print(self.points[ix])
         return candidates[:max_results]
 
     def get_avg_touched(self):

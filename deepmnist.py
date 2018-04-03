@@ -31,6 +31,7 @@ import tempfile
 
 from tensorflow.examples.tutorials.mnist import input_data
 
+import numpy as np
 import tensorflow as tf
 import lsh as lsh
 
@@ -164,12 +165,13 @@ def main(_):
   with tf.name_scope('LSH'):
     T = FLAGS.LSH_T
     d = FLAGS.LSH_D
-    RandomPlanes = random_projections(T,d,784) 
+    RandomPlanes = tf.placeholder(tf.float32, [1,T,d,784])
     print(RandomPlanes)
+    rptile = tf.tile(RandomPlanes, [FLAGS.BATCHSIZE,1,1,1])
     xtile = tf.tile(tf.reshape(x,[FLAGS.BATCHSIZE,1,784,1]),[1,T,1,1])
     print(xtile)    
     
-    ProjectedValues = tf.sign(tf.matmul(RandomPlanes, xtile)) #tf.squeeze(tf.sign())
+    ProjectedValues = tf.sign(tf.matmul(rptile, xtile)) #tf.squeeze(tf.sign())
     print(ProjectedValues)
     ProjectedFlat= tf.reshape(ProjectedValues, [-1,T*d])
 
@@ -219,41 +221,42 @@ def main(_):
     sess.run(tf.global_variables_initializer())
 
     print('Training LSH')
-    dev = mnist.train.next_batch(3)
+    dev = mnist.train.next_batch(100)
     lshproject.resize(FLAGS.LSH_T)
     lshproject.index(dev[0])  
 
-    dev2 = mnist.train.next_batch(3)
-    
-    print('Testing LSH')
-    lsh_labels = []
-    for query in dev2[0]:
-      hashquery = lshproject.hashquery(query)      
-      nn = lshproject.query(query,LSH_METRIC,1)    
-      lsh_labels.append(nn[0][0])
-    print(lsh_labels)
+    print('Copying Hash Functions')
+    hashfunction = np.zeros((1,FLAGS.LSH_T, FLAGS.LSH_D,784), dtype=np.float32)    
+    for i in range(FLAGS.LSH_T):
+      for j in range(FLAGS.LSH_D):
+        hashfunction[0][i][j] = lshproject.hash_funcs[i][j].S
+
+    print(np.shape(hashfunction))
+    #hashfunc = tf.convert_to_tensor(hashfunction)
+
+    #print(hashfunction)
     
     print('Training Neural Network')
     for i in range(FLAGS.TRAIN_ITER):
       batch = mnist.train.next_batch(FLAGS.BATCHSIZE)
       if i % 100 == 0:
         train_accuracy = accuracy.eval(feed_dict={
-            x: batch[0], y_: batch[1], keep_prob: 1.0})
+            x: batch[0], y_: batch[1], keep_prob: 1.0, RandomPlanes: hashfunction})
         print('step %d, training accuracy %g' % (i, train_accuracy))
         
         
-      train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.9})
+      train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.9, RandomPlanes: hashfunction})
 
       if i % 100 == 0:
         #batch_test = mnist.test.next_batch(FLAGS.BATCHSIZE)
         print('test accuracy %f' % accuracy_P.eval(feed_dict={
-              x:batch[0] , y_: batch[1], keep_prob: 1.0}))
+              x:batch[0] , y_: batch[1], keep_prob: 1.0, RandomPlanes: hashfunction}))
 
     acc = 0
     for i in range(FLAGS.TEST_ITER):
         batch_test = mnist.test.next_batch(FLAGS.BATCHSIZE)
         acc_temp = accuracy_P.eval(feed_dict={
-              x:batch_test[0] , y_: batch_test[1], keep_prob: 1.0})
+              x:batch_test[0] , y_: batch_test[1], keep_prob: 1.0, RandomPlanes: hashfunction})
         acc = acc + acc_temp 
         #print('test accuracy %f', acc_temp)
     print(acc/FLAGS.TEST_ITER)
@@ -261,7 +264,7 @@ def main(_):
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--data_dir', type=str,
-                      default='/tmp/tensorflow/mnist/input_data',
+                      default='MNIST-data',
                       help='Directory for storing input data')
   parser.add_argument('--LEARNINGRATE', type=float,
                       default='1e-4',
